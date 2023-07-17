@@ -13,6 +13,9 @@ import 'package:magdsoft_flutter_structure/presentation/widget/toast.dart';
 import 'package:sizer/sizer.dart';
 import 'package:intl/intl.dart';
 
+import 'constants/constant.dart';
+import 'presentation/styles/colors.dart';
+
 
 late LocalizationDelegate delegate;
 
@@ -23,10 +26,10 @@ Future<void> main() async {
       DioHelper.init();
       await CacheHelper.init();
       final locale =
-          CacheHelper.getDataFromSharedPreference(key: 'language') ?? "ar";
+          CacheHelper.getDataFromSharedPreference(key: 'language') ?? "en";
       delegate = await LocalizationDelegate.create(
         fallbackLocale: locale,
-        supportedLocales: ['ar', 'en'],
+        supportedLocales: ['en', 'ar'],
       );
       await delegate.changeLocale(Locale(locale));
       runApp(MyApp(
@@ -61,7 +64,7 @@ class _MyAppState extends State<MyApp> {
           Intl.defaultLocale = value.languageCode;
         });
       } catch (e) {
-        showToast(e.toString());
+        showToast(context,e.toString());
       }
     };
   }
@@ -97,11 +100,11 @@ class _MyAppState extends State<MyApp> {
                     onGenerateRoute: widget.appRouter.onGenerateRoute,
                     theme: ThemeData(
                       fontFamily: 'cairo',
-                      //scaffoldBackgroundColor: AppColors.white,
+                      scaffoldBackgroundColor: ColorManager.white,
                       appBarTheme: const AppBarTheme(
                         elevation: 0.0,
                         systemOverlayStyle: SystemUiOverlayStyle(
-                          //statusBarColor: AppColors.transparent,
+                          // statusBarColor: AppColors.transparent,
                           statusBarIconBrightness: Brightness.dark,
                         ),
                       ),
